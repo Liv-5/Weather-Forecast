@@ -41,34 +41,60 @@ const fetchWeather = async (cityName: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ cityName }),
-  });
-
-  const weatherData = await response.json();
-
-  console.log("weatherData: ", weatherData);
-
-  renderCurrentWeather(weatherData[0]);
-  renderForecast(weatherData.slice(1));
-};
-
-const fetchSearchHistory = async () => {
-  const history = await fetch("/api/weather/history", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return history;
-};
-
-const deleteCityFromHistory = async (id: string) => {
-  await fetch(`/api/weather/history/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
+  }).then((response) => {
+    const weatherData = response.json();
+    // renderCurrentWeather(weatherData[0]);
+    // renderForecast(weatherData.slice(1));
+    console.log(weatherData);
   });
 };
+
+// const fetchWeather = async (cityName: string) => {
+//   try {
+//     const response = await fetch("/api/weather/", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ cityName }),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+
+//     const weatherData = await response.text();
+//     console.log("Weather Data: ", weatherData);
+
+//     if (Array.isArray(weatherData) && weatherData.length > 0) {
+//       renderCurrentWeather(weatherData[0]);
+//       renderForecast(weatherData.slice(1));
+//     } else {
+//       console.warn("Unexpected weather data format: ", weatherData);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching weather data:", error);
+//   }
+// };
+
+// const fetchSearchHistory = async () => {
+//   const history = await fetch("/api/weather/history", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   return history;
+// };
+
+// const deleteCityFromHistory = async (id: string) => {
+//   await fetch(`/api/weather/history/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+// };
 
 /*
 
