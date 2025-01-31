@@ -80,13 +80,14 @@ class WeatherService {
   // TODO: Complete getWeatherForCity method
   async getWeatherForCity(_city: string) {
     const cityCoordinates = await fetch(
-      `${this._baseURL}/geo/1.0/direct?q=${_city}&appid=91985d9f8baeb6a32bdc3cc0b3a89be8`
+      `${this._baseURL}/geo/1.0/direct?q=${_city}&appid=${this._apiKey}`
     ).then((weatherData) => weatherData.json());
-    // console.log(cityCoordinates);
+    console.log(cityCoordinates);
+    console.log("test123");
     const { lat, lon } = cityCoordinates[0];
 
     const weatherForecast = await fetch(
-      `${this._baseURL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=91985d9f8baeb6a32bdc3cc0b3a89be8`
+      `${this._baseURL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this._apiKey}`
     )
       .then((response) => {
         return response.json();
@@ -105,6 +106,7 @@ class WeatherService {
         }
         console.log(fiveDay.length);
         console.log(forecastList.length);
+        console.log("here is 5day", fiveDay);
         return fiveDay;
       });
     const now = dayjs().format("YYYY-MM-DD");
